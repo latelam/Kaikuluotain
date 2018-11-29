@@ -24,11 +24,14 @@ float Kaiku::Mittaa() {
 
 float Kaiku::Laskee() {
     
-    Serial.begin(9600);
+  Serial.begin(9600);
+
+  Mittaa();
+  valimatka = (kestoaika / 2) * 0.0344;         // Etäisyys lasketaan: "pingin" eli äänisignaalin meno-paluuaika / 2 x 0.0344 (äänennopeus 344 metriä/s = 0.0344 cm mikrosekunnissa).
   
     if (valimatka >= 500 || valimatka <= 2){      // Jos välimatka yli 5 metriä tai alle 2 senttiä, ilmoita: "alueen ulkopuolella"..
-    Serial.print("Välimatka : ");
-    Serial.println("Alueen ulkopuolella!");
+    Serial.println("Alueen ulkopuolella !!!");
+    delay(sarja);
     } else { 
     Serial.print("Välimatka : ");               // ..muutoin näytä etäisyys senttimetreinä.
     Serial.print(valimatka);
@@ -54,7 +57,7 @@ float Kaiku::Nayttaa() {
     } else {
     lcd.clear();
     lcd.setCursor (0, 0);
-    lcd.print("Valimatka :");
+    lcd.print("Valimatka :");             // ..muutoin näytä etäisyys senttimetreinä.
     lcd.setCursor (0, 1); 
     lcd.print(valimatka);
     lcd.print(" cm");
