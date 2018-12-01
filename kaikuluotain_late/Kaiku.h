@@ -7,9 +7,11 @@ class Kaiku {
 
   public:
   Kaiku(int TRIG, int ECHO);
-  float Mittaa();
+  void Mittaa();
   float Laskee();
-  float Nayttaa();
+  void NayttaaSarja();
+  void NayttaaLCD();
+  void Alkudemo();
 
   private:
   int sarja = 500;

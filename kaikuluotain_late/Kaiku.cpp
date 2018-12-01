@@ -10,7 +10,7 @@ Kaiku::Kaiku(int TRIG, int ECHO) {
   Echo_pin=ECHO;
 }
 
-float Kaiku::Mittaa() {
+void Kaiku::Mittaa() {
 
   digitalWrite(Trig_pin, LOW);
   delayMicroseconds(2);
@@ -19,15 +19,19 @@ float Kaiku::Mittaa() {
   digitalWrite(Trig_pin, LOW);
   kestoaika = pulseIn(Echo_pin,HIGH);
   return kestoaika;
-  
 }
 
 float Kaiku::Laskee() {
+ 
+  valimatka = (kestoaika / 2) * 0.0344;           // Etäisyys lasketaan: "pingin" eli äänisignaalin meno-paluuaika / 2 x 0.0344 (äänennopeus 344 metriä/s = 0.0344 cm mikrosekunnissa).
+}
+
+void Kaiku::NayttaaSarja() {
     
   Serial.begin(9600);
 
   Mittaa();
-  valimatka = (kestoaika / 2) * 0.0344;         // Etäisyys lasketaan: "pingin" eli äänisignaalin meno-paluuaika / 2 x 0.0344 (äänennopeus 344 metriä/s = 0.0344 cm mikrosekunnissa).
+  Laskee();         
   
     if (valimatka >= 500 || valimatka <= 2){      // Jos välimatka yli 5 metriä tai alle 2 senttiä, ilmoita: "alueen ulkopuolella"..
     Serial.println("Alueen ulkopuolella !!!");
@@ -41,13 +45,13 @@ float Kaiku::Laskee() {
 }
 
 
-float Kaiku::Nayttaa() {
+void Kaiku::NayttaaLCD() {
   
   LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
   lcd.begin(16, 2);
  
   Mittaa();
-  valimatka = (kestoaika / 2) * 0.0344;         // Etäisyys lasketaan: "pingin" eli äänisignaalin meno-paluuaika / 2 x 0.0344 (äänennopeus 344 metriä/s = 0.0344 cm mikrosekunnissa). 
+  Laskee();
   
     if (valimatka >= 500 || valimatka <= 2){      // Jos välimatka yli 5 metriä tai alle 2 senttiä, ilmoita: "alueen ulkopuolella"..
     lcd.setCursor (0, 0);
@@ -63,6 +67,17 @@ float Kaiku::Nayttaa() {
     lcd.print(" cm");
     }
     delay(viive);   
-
 } 
+
+void Kaiku::Alkudemo() {
+
+  LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+  lcd.begin(16, 2);
+   
+    lcd.setCursor (0, 0);
+    lcd.print("Kaikuluotain");
+    lcd.setCursor (0, 1);
+    lcd.print("LATE 2018");
+    delay(5000);  
+}
 
