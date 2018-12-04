@@ -13,6 +13,15 @@ class Kaiku {
   void NayttaaLCD();
   void Alkudemo();
  
+
+
+  private:
+  int sarja = 500;
+  int viive = 500;
+  int Trig_pin;
+  int Echo_pin;
+  float kestoaika,valimatka;
+
   byte ae[8] = {      //ÄÄKKÖSET /ä
   0b01010,
   0b00000,
@@ -57,13 +66,8 @@ byte OO[8] = {      //Ö
   0b01110
 };
 
-  private:
-  int sarja = 500;
-  int viive = 500;
-  int Trig_pin;
-  int Echo_pin;
-  float kestoaika,valimatka;
 };
+
 
 #endif
 
