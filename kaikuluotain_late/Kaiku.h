@@ -3,9 +3,9 @@
 
 #include "Arduino.h"
 
-class Kaiku {
+class Kaiku {       // Luodaan luokka joka muodostuu metodeista laitteen toimintaa varten ja lisätään tarvittavat muuttujat
 
-  public:
+  public:                               // Julkinen tieto
   Kaiku(int TRIG, int ECHO);
   void Mittaa();
   float Laskee();
@@ -14,13 +14,12 @@ class Kaiku {
   void Alkudemo();
  
 
-
-  private:
+  private:                            // Yksityinen tieto
   int sarja = 500;
   int viive = 500;
   int Trig_pin;
   int Echo_pin;
-  float kestoaika,valimatka;
+  float kestoaika,valimatka;      // float fuktio pystyy käsittelemään liukulukuja,desimaaleja
 
   byte ae[8] = {      //ÄÄKKÖSET /ä
   0b01010,
